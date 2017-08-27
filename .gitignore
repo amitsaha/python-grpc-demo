@@ -101,4 +101,6 @@ ENV/
 # mkdocs documentation
 /site
 
+gen-*
+
 # End of https://www.gitignore.io/api/python
