@@ -17,7 +17,7 @@ for SERVICE in "${services[@]}"; do
 done
 
 # Golang
-# Install protoc
+# Install protoc (https://github.com/google/protobuf/releases/tag/v3.4.0)
 # Install go get -a github.com/golang/protobuf/protoc-gen-go
 
 for SERVICE in "${services[@]}"; do
