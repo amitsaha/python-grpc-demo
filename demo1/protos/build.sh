@@ -7,12 +7,12 @@ declare -a services=("users")
 
 for SERVICE in "${services[@]}"; do
     DESTDIR='gen-py'
-    mkdir -p $DESTDIR/$SERVICE
-    touch $DESTDIR/$SERVICE/__init__.py
+    mkdir -p $DESTDIR
+    touch $DESTDIR/__init__.py
     python -m grpc_tools.protoc \
         --proto_path=$SERVICE/ \
-        --python_out=$DESTDIR/$SERVICE \
-        --grpc_python_out=$DESTDIR/$SERVICE \
+        --python_out=$DESTDIR \
+        --grpc_python_out=$DESTDIR \
         $SERVICE/*.proto
 done
 
@@ -22,9 +22,9 @@ done
 
 for SERVICE in "${services[@]}"; do
     DESTDIR='gen-go'
-    mkdir -p $DESTDIR/$SERVICE
+    mkdir -p $DESTDIR
     protoc \
         --proto_path=$SERVICE/ \
-        --go_out=plugins=grpc:$DESTDIR/$SERVICE \
+        --go_out=plugins=grpc:$DESTDIR \
         $SERVICE/*.proto
 done

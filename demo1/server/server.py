@@ -3,21 +3,29 @@ import time
 
 import grpc
 
-import service_pb2
-import service_pb2_grpc
+import users_pb2_grpc as users_service
+import users_types_pb2 as users_messages
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
 
-class Greeter(service_pb2_grpc.GreeterServicer):
+class UsersService(users_service.UsersServicer):
 
-  def SayHello(self, request, context):
-    return service_pb2.HelloReply(message='Hello, %s!' % request.name)
+  def CreateUser(self, request, context):
+      metadata = dict(context.invocation_metadata())
+      user = users_messages.User(username=request.username, user_id=1)
+      return users_messages.CreateUserResult(user=user)
 
+  def GetUsers(self, request, context):
+      metadata = dict(context.invocation_metadata())
+      if not metadata.get('user_id'):
+          pass
+      user = users_messages.User(username="user1", user_id=1)
+      return users_messages.GetUsersResult(user=user)
 
 def serve():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-  service_pb2_grpc.add_GreeterServicer_to_server(Greeter(), server)
+  users_service.add_UsersServicer_to_server(UsersService(), server)
   server.add_insecure_port('[::]:50051')
   server.start()
   try:
