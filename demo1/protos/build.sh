@@ -3,7 +3,8 @@
 declare -a services=("users")
 
 # Python
-# $ pip install grpcio-tools
+# $ python -m pip install grcpio
+# $ python -m pip install grpcio-tools
 
 for SERVICE in "${services[@]}"; do
     DESTDIR='gen-py'

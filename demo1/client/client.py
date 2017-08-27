@@ -1,4 +1,4 @@
-from __future__ import print_function
+import sys
 
 import grpc
 
@@ -8,13 +8,18 @@ import users_types_pb2 as users_messages
 
 def run():
   channel = grpc.insecure_channel('localhost:50051')
-  stub = users_service.UsersStub(channel)
-  metadata = [('ip', '127.0.0.1')]
-  response = stub.CreateUser(
-      users_messages.CreateUserRequest(username='tom'),
-      metadata=metadata,
-  )
-  print("User created:", response.user.username)
+  try:
+      grpc.channel_ready_future(channel).result(timeout=10)
+  except grpc.FutureTimeoutError:
+      sys.exit('Error connecting to server')
+  else:
+      stub = users_service.UsersStub(channel)
+      metadata = [('ip', '127.0.0.1')]
+      response = stub.CreateUser(
+          users_messages.CreateUserRequest(username='tom'),
+          metadata=metadata,
+      )
+      print("User created:", response.user.username)
 
 if __name__ == '__main__':
   run()
