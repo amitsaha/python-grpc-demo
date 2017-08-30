@@ -21,5 +21,14 @@ def run():
       )
       print("User created:", response.user.username)
 
+      request = users_messages.GetUsersRequest(
+          user=[users_messages.User(username="alexa", user_id=1),
+                users_messages.User(username="christie", user_id=1)])
+      response = stub.GetUsers(request)
+      for resp in response:
+          print(resp)
+
+
+
 if __name__ == '__main__':
   run()

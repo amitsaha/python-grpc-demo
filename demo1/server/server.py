@@ -20,8 +20,10 @@ class UsersService(users_service.UsersServicer):
       metadata = dict(context.invocation_metadata())
       if not metadata.get('user_id'):
           pass
-      user = users_messages.User(username="user1", user_id=1)
-      return users_messages.GetUsersResult(user=user)
+      for user in request.user:
+          user = users_messages.User(username=user.username,
+                                     user_id=user.user_id)
+          yield users_messages.GetUsersResult(user=user)
 
 def serve():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
