@@ -21,11 +21,11 @@ done
 # Install protoc (https://github.com/google/protobuf/releases/tag/v3.4.0)
 # Install go get -a github.com/golang/protobuf/protoc-gen-go
 
-for SERVICE in "${services[@]}"; do
-    DESTDIR='gen-go'
-    mkdir -p $DESTDIR
-    protoc \
-        --proto_path=$SERVICE/ \
-        --go_out=plugins=grpc:$DESTDIR \
-        $SERVICE/*.proto
-done
+#for SERVICE in "${services[@]}"; do
+#    DESTDIR='gen-go'
+#    mkdir -p $DESTDIR
+#    protoc \
+#        --proto_path=$SERVICE/ \
+#        --go_out=plugins=grpc:$DESTDIR \
+#        $SERVICE/*.proto
+#done
