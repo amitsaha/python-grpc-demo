@@ -1,3 +1,3 @@
 #!/bin/bash
 
-PYTHONPATH=../users/protos/gen-py python3 -m cProfile app.py
+PYTHONPATH=../grpc-services/protos/gen-py:../grpc-services python3 app.py
