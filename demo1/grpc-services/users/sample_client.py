@@ -1,9 +1,7 @@
-import sys
-
-import grpc
 import users_pb2_grpc as users_service
 import users_types_pb2 as users_messages
 from client_wrapper import ServiceClient
+
 
 def run():
     users = ServiceClient(users_service, 'UsersStub', 'localhost', 50051)
@@ -23,5 +21,6 @@ def run():
     for resp in response:
         print(resp)
 
+
 if __name__ == '__main__':
-  run()
+    run()

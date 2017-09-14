@@ -25,7 +25,7 @@ def run():
             user=[users_messages.User(username="alexa", user_id=1),
                   users_messages.User(username="christie", user_id=1)]
         )
-        response = users_service.GetUsers(request)
+        response = stub.GetUsers(request)
         for resp in response:
             print(resp)
 
