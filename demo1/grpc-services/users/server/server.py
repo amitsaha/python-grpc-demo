@@ -18,9 +18,6 @@ class UsersService(users_service.UsersServicer):
         return users_messages.CreateUserResult(user=user)
 
     def GetUsers(self, request, context):
-        metadata = dict(context.invocation_metadata())
-        if not metadata.get('user_id'):
-            pass
         for user in request.user:
             user = users_messages.User(
                 username=user.username, user_id=user.user_id

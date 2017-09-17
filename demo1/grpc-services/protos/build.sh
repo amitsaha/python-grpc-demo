@@ -9,7 +9,6 @@ declare -a services=("users")
 for SERVICE in "${services[@]}"; do
     DESTDIR='gen-py'
     mkdir -p $DESTDIR
-    touch $DESTDIR/__init__.py
     python -m grpc_tools.protoc \
         --proto_path=$SERVICE/ \
         --python_out=$DESTDIR \
