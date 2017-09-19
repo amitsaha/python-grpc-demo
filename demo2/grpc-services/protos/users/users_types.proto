@@ -1,0 +1,25 @@
+syntax = "proto3";
+package users;
+
+message User {
+  string username = 1;
+  uint32 user_id = 2;
+}
+
+message CreateUserRequest {
+  string username = 1;
+  string password = 2;
+  string email = 3;
+}
+
+message CreateUserResult {
+  User user = 1;
+}
+
+message GetUsersRequest {
+  repeated User user = 1;
+}
+
+message GetUsersResult {
+  User user = 1;
+}

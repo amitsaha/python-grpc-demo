@@ -1,0 +1,7 @@
+syntax = "proto3";
+import "users_types.proto";
+
+service Users {
+  rpc CreateUser (users.CreateUserRequest) returns (users.CreateUserResult);
+  rpc GetUsers (users.GetUsersRequest) returns (stream users.GetUsersResult);
+}
