@@ -13,7 +13,7 @@ def run():
 
     # create credentials
     credentials = grpc.ssl_channel_credentials(root_certificates=trusted_certs)
-    channel = grpc.secure_channel('127.0.0.1:50051', credentials)
+    channel = grpc.secure_channel('Demo:50051', credentials)
     try:
         grpc.channel_ready_future(channel).result(timeout=10)
     except grpc.FutureTimeoutError:
