@@ -7,7 +7,14 @@ import grpc
 import users_pb2_grpc as users_service
 import users_types_pb2 as users_messages
 
+from grpcext import _interceptor
+from metric_interceptor import MetricInterceptor
+
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
+
+
+def intercept_server(server, *interceptors):
+    return _interceptor.intercept_server(server, *interceptors)
 
 
 class UsersService(users_service.UsersServicer):
@@ -28,6 +35,8 @@ class UsersService(users_service.UsersServicer):
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    metric_interceptor = MetricInterceptor()
+    server = intercept_server(server, metric_interceptor)
     users_service.add_UsersServicer_to_server(UsersService(), server)
 
     # read in key and certificate
