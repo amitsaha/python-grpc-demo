@@ -46,7 +46,7 @@ def serve():
         certificate_chain = f.read().encode()
     # create server credentials
     server_creds = grpc.ssl_server_credentials(
-      ((private_key, certificate_chain,),))
+        ((private_key, certificate_chain,),))
     server.add_secure_port('Demo:50051', server_creds)
     server.start()
     try:
@@ -54,6 +54,7 @@ def serve():
             time.sleep(_ONE_DAY_IN_SECONDS)
     except KeyboardInterrupt:
         server.stop(0)
+
 
 if __name__ == '__main__':
     serve()
