@@ -1,5 +1,6 @@
 import six
 import abc
+import time
 
 from grpcext import UnaryServerInterceptor, StreamServerInterceptor
 
@@ -12,12 +13,14 @@ class MetricInterceptor(UnaryServerInterceptor, StreamServerInterceptor):
     def intercept_unary(self, request, servicer_context, server_info, handler):
         response = None
         try:
+            servicer_context.start_time = time.time()
             print('I was called')
             response = handler(request)
         except:
             e = sys.exc_info()[0]
             print(str(e))
             raise
+        print('Request took {0} seconds'.format(time.time()-servicer_context.start_time))
         return response
 
     def _intercept_server_stream(self, servicer_context, server_info, handler):
