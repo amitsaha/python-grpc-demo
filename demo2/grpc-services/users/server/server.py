@@ -34,7 +34,7 @@ class UsersService(users_service.UsersServicer):
 
 
 def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
     metric_interceptor = MetricInterceptor()
     server = intercept_server(server, metric_interceptor)
     users_service.add_UsersServicer_to_server(UsersService(), server)
