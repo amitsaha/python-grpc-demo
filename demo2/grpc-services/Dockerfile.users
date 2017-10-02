@@ -1,0 +1,17 @@
+FROM python:3.6.1-alpine
+ADD protos/gen-py /protos/gen-py
+
+ADD users/server /application
+WORKDIR /application
+RUN set -e; \
+	apk add --no-cache --virtual .build-deps \
+		gcc \
+        g++ \
+		libc-dev \
+		linux-headers \
+	; \
+	pip install -r requirements.txt; \
+	apk del .build-deps;
+EXPOSE 50051
+VOLUME /application
+CMD PYTHONPATH=/protos/gen-py python3 server.py
