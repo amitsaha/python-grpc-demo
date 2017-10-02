@@ -1,8 +1,11 @@
 FROM python:3.6-jessie
 ADD protos/gen-py /protos/gen-py
 
-ADD users/server /application
-WORKDIR /application
+# Add the client code strictly for development
+# purposes
+ADD users/client /client
+ADD users/server /server
+WORKDIR /server
 RUN set -e; \
 	apt-get update ; \
     apt-get install \
@@ -12,5 +15,5 @@ RUN set -e; \
     pip install --upgrade pip; \
 	pip install -r requirements.txt
 EXPOSE 50051
-VOLUME /application
+VOLUME /server
 CMD PYTHONPATH=/protos/gen-py python3 server.py

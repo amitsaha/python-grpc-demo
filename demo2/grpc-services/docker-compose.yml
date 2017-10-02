@@ -9,4 +9,4 @@ services:
     ports:
       - 50051:50051
     volumes:
-      - ./users/server:/application
+      - ./users/server:/server

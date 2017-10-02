@@ -6,7 +6,7 @@ import grpc
 from grpcext import UnaryServerInterceptor, StreamServerInterceptor
 from datadog import DogStatsd
 
-statsd = DogStatsd(host="localhost", port=9125)
+statsd = DogStatsd(host="statsd", port=9125)
 REQUEST_LATENCY_METRIC_NAME = 'request_latency_seconds'
 
 def push_to_statsd_histogram(metric, value, tags=[]):
