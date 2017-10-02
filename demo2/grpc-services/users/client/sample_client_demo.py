@@ -8,7 +8,7 @@ import users_types_pb2 as users_messages
 
 def run():
     # read in certificate
-    with open('auth_keys/server.crt') as f:
+    with open('server.crt') as f:
         trusted_certs = f.read().encode()
 
     # create credentials

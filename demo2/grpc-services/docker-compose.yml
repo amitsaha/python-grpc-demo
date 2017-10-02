@@ -2,9 +2,7 @@ version: '2'
 
 services:
   users:
-    build: amitsaha/users
-      context: .
-      dockerfile: Dockerfile.users
+    image: amitsaha/grpc-users
     container_name: users 
     expose:
       - 50051
