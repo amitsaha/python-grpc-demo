@@ -9,6 +9,9 @@ import users_types_pb2 as users_messages
 
 from grpc_interceptors import intercept_server
 from metric_interceptor import MetricInterceptor
+from logging_interceptor import LoggingInterceptor
+
+import random
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
@@ -16,9 +19,9 @@ _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 class UsersService(users_service.UsersServicer):
 
     def CreateUser(self, request, context):
-        metadata = dict(context.invocation_metadata())
-        print(metadata)
         user = users_messages.User(username=request.username, user_id=1)
+        if random.random() > 0.5:
+            1/0
         return users_messages.CreateUserResult(user=user)
 
     def GetUsers(self, request, context):
@@ -32,7 +35,8 @@ class UsersService(users_service.UsersServicer):
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     metric_interceptor = MetricInterceptor()
-    server = intercept_server(server, metric_interceptor)
+    logging_interceptor = LoggingInterceptor()
+    server = intercept_server(server, logging_interceptor, metric_interceptor)
     users_service.add_UsersServicer_to_server(UsersService(), server)
 
     # read in key and certificate
