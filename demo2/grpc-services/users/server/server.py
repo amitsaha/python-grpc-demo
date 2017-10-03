@@ -7,7 +7,7 @@ import grpc
 import users_pb2_grpc as users_service
 import users_types_pb2 as users_messages
 
-from grpcext import intercept_server
+from grpc_interceptors import intercept_server
 from metric_interceptor import MetricInterceptor
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24

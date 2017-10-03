@@ -1,5 +1,6 @@
 ```
-20:30 $ docker build -t amitsaha/grpc-users -f Dockerfile.users .
+$ docker build -t amitsaha/grpc-users -f Dockerfile.users .
+$ docker run --add-host Demo:127.0.0.1 -ti amitsaha/grpc-users
 ```
 
 ```bash
