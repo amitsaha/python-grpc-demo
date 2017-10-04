@@ -2,7 +2,6 @@ import datetime
 import grpc
 import logging
 from pythonjsonlogger import jsonlogger
-import google.protobuf
 
 from grpc_interceptors import UnaryUnaryServerInterceptor, UnaryStreamServerInterceptor
 
@@ -19,6 +18,7 @@ def log_errors(func):
     def wrapper(*args, **kw):
         metadata = {}
         metadata['timestamp'] = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        servicer_context = None
         if isinstance(args[4], grpc._server._Context):
             servicer_context = args[4]
             metadata.update(dict(servicer_context.invocation_metadata()))
@@ -26,8 +26,9 @@ def log_errors(func):
             result = func(*args, **kw)
         except Exception as e:
             logger.error(e, exc_info=True, extra=metadata)
-            servicer_context.set_details(str(e))
-            servicer_context.set_code(grpc.StatusCode.UNKNOWN)
+            if servicer_context:
+                servicer_context.set_details(str(e))
+                servicer_context.set_code(grpc.StatusCode.UNKNOWN)
             # TODO: need to return an appropriate response type here
             # Currently this will raise a serialization error on the server
             # side
