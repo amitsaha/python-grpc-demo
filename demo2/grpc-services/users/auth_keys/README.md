@@ -1,17 +1,23 @@
+## Create a self-signed certificate 
+
+**Generate a privat key**
+
 ```
-07:27 $ openssl genrsa -out server.key 2048
+$ openssl genrsa -out server.key 2048
 Generating RSA private key, 2048 bit long modulus
 .........+++
 .......................................................................+++
 e is 65537 (0x10001)
-(grpc-demo) ✔ ~/work/github.com/amitsaha/python-grpc-demo/demo2/grpc-services/users/auth_keys [part2 L|…15]
-07:27 $ ls
+
+
+$ ls
 server.key
 ```
 
+**Use the above key to generate and sign a certificate**
 
 ```
-07:28 $ openssl req -new -x509 -sha256 -key server.key -out server.crt -days 3650
+$ openssl req -new -x509 -sha256 -key server.key -out server.crt -days 3650
 You are about to be asked to enter information that will be incorporated
 into your certificate request.
 What you are about to enter is what is called a Distinguished Name or a DN.
@@ -24,10 +30,22 @@ State or Province Name (full name) [Some-State]:NSW
 Locality Name (eg, city) []:Sydney
 Organization Name (eg, company) [Internet Widgits Pty Ltd]:gRPC Demo
 Organizational Unit Name (eg, section) []:gRPC
-Common Name (e.g. server FQDN or YOUR name) []:Demo
+Common Name (e.g. server FQDN or YOUR name) []:localhost
 Email Address []:a@a.com
 (
-07:27 $ ls
+```
+
+We will now have two files:
+
+$ ls
 server.key server.crt
 
 ```
+
+## Server side configuration
+
+We will then copy both these files to the `server` directory
+
+## Client side configuration
+
+We will copy the `.crt` file to the `client` directory.

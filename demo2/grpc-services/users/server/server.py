@@ -47,7 +47,7 @@ def serve():
     # create server credentials
     server_creds = grpc.ssl_server_credentials(
         ((private_key, certificate_chain,),))
-    server.add_secure_port('Demo:50051', server_creds)
+    server.add_secure_port('localhost:50051', server_creds)
     server.start()
     try:
         while True:
