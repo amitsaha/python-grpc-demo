@@ -10,5 +10,3 @@ services:
       - 50051:50051
     volumes:
       - ./users/server:/server
-    extra_hosts:
-      - "Demo:127.0.0.1"

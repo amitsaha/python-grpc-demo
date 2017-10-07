@@ -49,3 +49,10 @@ We will then copy both these files to the `server` directory
 ## Client side configuration
 
 We will copy the `.crt` file to the `client` directory.
+
+## Learn more
+
+- https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl
+- https://en.wikipedia.org/wiki/X.509
+- https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
+
