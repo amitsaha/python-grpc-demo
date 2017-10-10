@@ -21,12 +21,17 @@ def run():
     else:
         stub = users_service.UsersStub(channel)
         metadata = [('ip', '127.0.0.1')]
-        response = stub.CreateUser(
-            users_messages.CreateUserRequest(username='tom'),
-            metadata=metadata,
-        )
-        if response:
+
+        try:
+            response = stub.CreateUser(
+                users_messages.CreateUserRequest(username='tom'),
+                metadata=metadata,
+            )
+        except grpc.RpcError as e:
+            print('CreateUser failed with {0}: {1}'.format(e.code(), e.details()))
+        else:
             print("User created:", response.user.username)
+
         request = users_messages.GetUsersRequest(
             user=[users_messages.User(username="alexa", user_id=1),
                   users_messages.User(username="christie", user_id=1)]
