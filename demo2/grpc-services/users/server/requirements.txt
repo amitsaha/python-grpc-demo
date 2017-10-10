@@ -1,5 +1,5 @@
-grpcio==1.4.0
-grpcio-tools==1.4.0
+grpcio==1.6.3
+grpcio-tools==1.6.3
 protobuf==3.4.0
 datadog==0.16.0
 python-json-logger==0.1.8
