@@ -36,7 +36,7 @@ def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     metric_interceptor = MetricInterceptor()
     logging_interceptor = LoggingInterceptor()
-    server = intercept_server(server, logging_interceptor, metric_interceptor)
+    server = intercept_server(server, metric_interceptor, logging_interceptor)
     users_service.add_UsersServicer_to_server(UsersService(), server)
 
     # read in key and certificate
