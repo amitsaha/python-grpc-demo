@@ -1,26 +1,44 @@
-## Demo 1
+## Demo 2
 
 Contents:
 
 ```
-$ tree -L 2 demo1
-demo1
-├── grpc-services
-│   ├── client_wrapper.py
-│   ├── protos
-│   └── users
-├── requirements.txt
-└── webapp
-    ├── app.py
-    └── run-server.sh
+13:51 $ tree -L 1 grpc-services/
+grpc-services/
+├── Dockerfile.users
+├── client_wrapper.py
+├── config
+├── docker-compose-infra.yml
+├── docker-compose.yml
+├── grpc_interceptors
+├── protos
+└── users
+
 ```
 
-- `grpc-services/protos`: `protobuf` definitions for a service `users`
-- `grpc-services/users`: Sample client and server for the `users` service
-- `grpc-services/client_wrapper.py`: A generic gRPC client wrapper
-- `webapp`: A simple Flask application which interfaces with the `users` service
+### Running the gRPC server
+
+Build the docker image for the gRPC server:
+
+```
+$ cd grpc-services
+$ docker build -t amitsaha/grpc-users -f Dockerfile.users .
+$ docker run -ti amitsaha/grpc-users
+```
+
+Start the server along with statsd exporter, prometheus and grafana:
+
+```bash
+$ docker-compose -f docker-compse.yml -f docker-compose-infra.yml up
+```
+
+### Running the client
 
 
-Resources
+```bash
+$ docker exec -ti users bash
+# cd /client
+# # run the sample_client_demo.py file 10 times
+#  ./run-client.sh 10
+```
 
-- http://www.sandtable.com/using-ssl-with-grpc-in-python/
