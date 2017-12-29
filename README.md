@@ -3,7 +3,7 @@
 Demos for articles:
 
 - https://blog.codeship.com/using-grpc-in-python/
-- Part 2
+- https://blog.codeship.com/exploring-security-metrics-and-error-handling-with-grpc-in-python/
 
 ## Contents
 
