@@ -1,6 +1,6 @@
 ## Create a self-signed certificate 
 
-**Generate a privat key**
+**Generate a private key**
 
 ```
 $ openssl genrsa -out server.key 2048
