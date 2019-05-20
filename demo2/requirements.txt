@@ -1,10 +1,10 @@
 click==6.7
-Flask==0.12.2
+Flask==0.12.3
 greenlet==0.4.12
 grpcio==1.4.0
 grpcio-tools==1.4.0
 itsdangerous==0.24
-Jinja2==2.9.6
+Jinja2==2.10.1
 MarkupSafe==1.0
 msgpack-python==0.4.8
 neovim==0.1.13
