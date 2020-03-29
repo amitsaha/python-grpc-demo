@@ -1,5 +1,5 @@
 click==6.7
-Flask==0.12.3
+Flask==1.0
 greenlet==0.4.12
 grpcio==1.4.0
 grpcio-tools==1.4.0
