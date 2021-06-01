@@ -8,10 +8,14 @@ import users_pb2_grpc as users_service
 import users_types_pb2 as users_messages
 
 app = Flask(__name__)
-app.config['users'] = ServiceClient(users_service, 'UsersStub', 'localhost', 50051)
+
+@app.route("/healthz")
+def ping():
+    return "ok", 200
 
 @app.route('/users/')
 def users_get():
+    app.config['users'] = ServiceClient(users_service, 'UsersStub', 'users', 50051)
     request = users_messages.GetUsersRequest(
         user=[users_messages.User(username="alexa", user_id=1),
               users_messages.User(username="christie", user_id=1)]
@@ -21,6 +25,3 @@ def users_get():
         for resp in response:
             yield MessageToJson(resp)
     return Response(get_user(), content_type='application/json')
-
-if __name__ == '__main__':
-    app.run()

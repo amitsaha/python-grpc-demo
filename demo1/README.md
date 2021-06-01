@@ -1,5 +1,17 @@
 ## Demo 1
 
+```
+Package      Version
+------------ -------
+grpcio       1.38.0
+grpcio-tools 1.38.0
+pip          21.1.2
+protobuf     3.17.1
+setuptools   57.0.0
+six          1.16.0
+wheel        0.36.2
+```
+
 Contents:
 
 ```

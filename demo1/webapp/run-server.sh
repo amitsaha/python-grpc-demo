@@ -1,3 +1,3 @@
 #!/bin/bash
 
-PYTHONPATH=../grpc-services/protos/gen-py:../grpc-services python3 app.py
+PYTHONPATH=./gen-py  flask run --host=0.0.0.0
