@@ -1,0 +1,14 @@
+# bring up grpc services and the http application
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile.web_app
+    ports:
+      - "5000:5000"
+    links:
+      - users
+  users:
+    build:
+      context: .
+      dockerfile: Dockerfile.grpc_app
