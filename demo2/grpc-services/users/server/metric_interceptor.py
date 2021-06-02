@@ -2,7 +2,7 @@ import time
 import grpc
 import logging
 
-from grpc_interceptors import UnaryUnaryServerInterceptor, UnaryStreamServerInterceptor
+from grpc import ServerInterceptor
 from datadog import DogStatsd
 
 statsd = DogStatsd(host="statsd", port=9125)
@@ -47,10 +47,14 @@ def send_metrics(func):
     return wrapper
 
 
-class MetricInterceptor(UnaryUnaryServerInterceptor, UnaryStreamServerInterceptor):
+class MetricInterceptor(ServerInterceptor):
 
     def __init__(self):
         print("Initializing metric interceptor")
+
+    @abc.abstractmethod
+    def intercept_service(self, continuation, handler_call_details):
+        return handler(request, servicer_context)
 
     @send_metrics
     def intercept_unary_unary_handler(self, handler, method, request, servicer_context):

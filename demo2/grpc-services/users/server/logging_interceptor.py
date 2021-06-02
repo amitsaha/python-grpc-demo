@@ -3,8 +3,6 @@ import grpc
 import logging
 from pythonjsonlogger import jsonlogger
 
-from grpc_interceptors import UnaryUnaryServerInterceptor, UnaryStreamServerInterceptor
-
 logger = logging.getLogger()
 logHandler = logging.StreamHandler()
 formatter = jsonlogger.JsonFormatter()
@@ -38,17 +36,15 @@ def log_errors(func):
     return wrapper
 
 
-class LoggingInterceptor(UnaryUnaryServerInterceptor, UnaryStreamServerInterceptor):
+class LoggingInterceptor(grpc.ServerInterceptor):
 
     def __init__(self):
         print("Initializing logging interceptor")
-
+    
     @log_errors
-    def intercept_unary_unary_handler(self, handler, method, request, servicer_context):
-        return handler(request, servicer_context)
-
-    @log_errors
-    def intercept_unary_stream_handler(self, handler, method, request, servicer_context):
-        result = handler(request, servicer_context)
-        for response in result:
-            yield response
+    def intercept_service(self, continuation, handler_call_details):
+        # Only intercept unary call and reponse streaming RPCs
+        handler = continuation(handler_call_details)
+        if handler and handler.request_streaming:
+            return handler
+        return continuation(handler_call_details)

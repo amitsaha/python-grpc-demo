@@ -7,8 +7,7 @@ import grpc
 import users_pb2_grpc as users_service
 import users_types_pb2 as users_messages
 
-from grpc_interceptors import intercept_server
-from metric_interceptor import MetricInterceptor
+#from metric_interceptor import MetricInterceptor
 from logging_interceptor import LoggingInterceptor
 
 import random
@@ -33,10 +32,10 @@ class UsersService(users_service.UsersServicer):
 
 
 def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    metric_interceptor = MetricInterceptor()
-    logging_interceptor = LoggingInterceptor()
-    server = intercept_server(server, metric_interceptor, logging_interceptor)
+    server = grpc.server(
+        futures.ThreadPoolExecutor(max_workers=10), 
+        interceptors=[LoggingInterceptor()],
+        )
     users_service.add_UsersServicer_to_server(UsersService(), server)
 
     # read in key and certificate
@@ -47,7 +46,7 @@ def serve():
     # create server credentials
     server_creds = grpc.ssl_server_credentials(
         ((private_key, certificate_chain,),))
-    server.add_secure_port('localhost:50051', server_creds)
+    server.add_secure_port('0.0.0.0:50051', server_creds)
     server.start()
     try:
         while True:
