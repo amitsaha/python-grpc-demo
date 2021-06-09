@@ -8,7 +8,7 @@ Jinja2==2.11.3
 MarkupSafe==1.0
 msgpack-python==0.4.8
 neovim==0.1.13
-pip==9.0.1
+pip==19.2
 protobuf==3.4.0
 setuptools==28.8.0
 six==1.10.0
