@@ -1,10 +1,17 @@
 import grpc
 from functools import partial
+import sys
 
 class ServiceClient:
 
     def __init__(self, service_module, stub_name, host, port, timeout=10):
-        channel = grpc.insecure_channel('{0}:{1}'.format(host, port))
+        # read in certificate
+        with open('server.crt') as f:
+            trusted_certs = f.read().encode()
+
+        # create credentials
+        credentials = grpc.ssl_channel_credentials(root_certificates=trusted_certs)
+        channel = grpc.secure_channel('users:50051', credentials)
         try:
             grpc.channel_ready_future(channel).result(timeout=10)
         except grpc.FutureTimeoutError:

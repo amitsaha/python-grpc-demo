@@ -9,5 +9,7 @@ RUN ./build.sh
 WORKDIR /
 COPY /webapp /app
 RUN cp -r /protos/gen-py /app
+COPY grpc-services/client_wrapper.py /app/
+COPY grpc-services/users/auth_keys/server.crt /app/
 WORKDIR /app
 CMD ["./run-server.sh"]

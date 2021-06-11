@@ -30,7 +30,7 @@ State or Province Name (full name) [Some-State]:NSW
 Locality Name (eg, city) []:Sydney
 Organization Name (eg, company) [Internet Widgits Pty Ltd]:gRPC Demo
 Organizational Unit Name (eg, section) []:gRPC
-Common Name (e.g. server FQDN or YOUR name) []:localhost
+Common Name (e.g. server FQDN or YOUR name) []:users
 Email Address []:a@a.com
 (
 ```
