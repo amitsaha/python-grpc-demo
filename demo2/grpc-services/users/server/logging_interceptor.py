@@ -24,7 +24,6 @@ def log_errors(func):
         # 2: _HandlerCallDetails(method='/Users/GetUsers', 
         #     invocation_metadata=(_Metadatum(key='user-agent', value='grpc-python/1.38.0 grpc-c/16.0.0 (linux; chttp2)'),)))
         # https://grpc.github.io/grpc/python/glossary.html#term-metadata
-        
         metadata['method'] = args[2].method
         for k, v in args[2].invocation_metadata[0]._asdict().items():
             metadata[k] = v

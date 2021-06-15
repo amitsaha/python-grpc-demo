@@ -1,29 +1,11 @@
 ## Demo 2
 
-Contents:
+### Running the HTTP and gRPC server
+
+Build the docker images:
 
 ```
-13:51 $ tree -L 1 grpc-services/
-grpc-services/
-├── Dockerfile.users
-├── client_wrapper.py
-├── config
-├── docker-compose-infra.yml
-├── docker-compose.yml
-├── grpc_interceptors
-├── protos
-└── users
-
-```
-
-### Running the gRPC server
-
-Build the docker image for the gRPC server:
-
-```
-$ cd grpc-services
-$ docker build -t amitsaha/grpc-users -f Dockerfile.users .
-$ docker run -ti amitsaha/grpc-users
+$ docker-compose build
 ```
 
 Start the server along with statsd exporter, prometheus and grafana:
@@ -32,13 +14,19 @@ Start the server along with statsd exporter, prometheus and grafana:
 $ docker-compose -f docker-compse.yml -f docker-compose-infra.yml up
 ```
 
-### Running the client
+### Making a request
 
-
-```bash
-$ docker exec -ti users bash
-# cd /client
-# # run the sample_client_demo.py file 10 times
-#  ./run-client.sh 10
 ```
+$ curl localhost:5000/users/
+{
+  "user": {
+    "username": "alexa",
+    "userId": 1
+  }
+}{
+  "user": {
+    "username": "christie",
+    "userId": 1
+  }
 
+```
