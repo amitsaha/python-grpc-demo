@@ -7,6 +7,13 @@ Demos for articles:
 
 ## Contents
 
+The demos were updated last in June 2021.
+
+Key software versions:
+
+- Python 3.8
+- gRPC 1.38
+
 You will need [docker and docker compose](https://docs.docker.com/get-docker/) installed.
 
 ### [demo1](https://github.com/amitsaha/python-grpc-demo/tree/master/demo1)
