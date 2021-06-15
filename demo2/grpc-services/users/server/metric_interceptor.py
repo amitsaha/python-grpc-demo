@@ -2,7 +2,7 @@ import time
 import grpc
 import logging
 
-from grpc_interceptors import UnaryUnaryServerInterceptor, UnaryStreamServerInterceptor
+from grpc import ServerInterceptor
 from datadog import DogStatsd
 
 statsd = DogStatsd(host="statsd", port=9125)
@@ -18,15 +18,8 @@ def send_metrics(func):
 
     @wraps(func)
     def wrapper(*args, **kw):
-        service_method = None
-        service_name = None
-        if isinstance(args[4], grpc._server._Context):
-            servicer_context = args[4]
-            # This gives us <service>/<method name>
-            service_method = servicer_context._rpc_event.request_call_details.method
-            service_name, method_name = str(service_method).rsplit('/')[1::]
-        else:
-            logging.warning('Cannot derive the service name and method')
+        
+        service_name, method_name = args[2].method.rsplit('/')[1::]
         try:
             start_time = time.time()
             result = func(*args, **kw)
@@ -47,17 +40,15 @@ def send_metrics(func):
     return wrapper
 
 
-class MetricInterceptor(UnaryUnaryServerInterceptor, UnaryStreamServerInterceptor):
+class MetricInterceptor(grpc.ServerInterceptor):
 
     def __init__(self):
         print("Initializing metric interceptor")
-
+    
     @send_metrics
-    def intercept_unary_unary_handler(self, handler, method, request, servicer_context):
-        return handler(request, servicer_context)
-
-    @send_metrics
-    def intercept_unary_stream_handler(self, handler, method, request, servicer_context):
-        result = handler(request, servicer_context)
-        for response in result:
-            yield response
+    def intercept_service(self, continuation, handler_call_details):
+        # Only intercept unary call and reponse streaming RPCs
+        handler = continuation(handler_call_details)
+        if handler and handler.request_streaming:
+            return handler
+        return continuation(handler_call_details)

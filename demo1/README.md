@@ -1,23 +1,32 @@
 ## Demo 1
 
-Contents:
+### Running the HTTP and gRPC server
+
+Build the docker images:
 
 ```
-$ tree -L 2 demo1
-demo1
-├── grpc-services
-│   ├── client_wrapper.py
-│   ├── protos
-│   └── users
-├── requirements.txt
-└── webapp
-    ├── app.py
-    └── run-server.sh
+$ docker-compose build
 ```
 
-- `grpc-services/protos`: `protobuf` definitions for a service `users`
-- `grpc-services/users`: Sample client and server for the `users` service
-- `grpc-services/client_wrapper.py`: A generic gRPC client wrapper
-- `webapp`: A simple Flask application which interfaces with the `users` service
+Start the server along with statsd exporter, prometheus and grafana:
 
+```bash
+$ docker-compose -f docker-compse.yml -f docker-compose-infra.yml up
+```
 
+### Making a request
+
+```
+$ curl localhost:5000/users/
+{
+  "user": {
+    "username": "alexa",
+    "userId": 1
+  }
+}{
+  "user": {
+    "username": "christie",
+    "userId": 1
+  }
+
+```
