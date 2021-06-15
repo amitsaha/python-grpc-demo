@@ -8,6 +8,7 @@ logHandler = logging.StreamHandler()
 formatter = jsonlogger.JsonFormatter()
 logHandler.setFormatter(formatter)
 logger.addHandler(logHandler)
+logger.setLevel(logging.INFO)
 
 def log_errors(func):
     from functools import wraps
@@ -17,9 +18,17 @@ def log_errors(func):
         metadata = {}
         metadata['timestamp'] = datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%fZ')
         servicer_context = None
-        if isinstance(args[4], grpc._server._Context):
-            servicer_context = args[4]
-            metadata.update(dict(servicer_context.invocation_metadata()))
+        # Sample value of args:
+        # 0: (<logging_interceptor.LoggingInterceptor object at 0x7fb88de03f10>, 
+        # 1: <function _ServicePipeline._continuation.<locals>.<lambda> at 0x7fb88dce9670>, 
+        # 2: _HandlerCallDetails(method='/Users/GetUsers', 
+        #     invocation_metadata=(_Metadatum(key='user-agent', value='grpc-python/1.38.0 grpc-c/16.0.0 (linux; chttp2)'),)))
+        # https://grpc.github.io/grpc/python/glossary.html#term-metadata
+        
+        metadata['method'] = args[2].method
+        for k, v in args[2].invocation_metadata[0]._asdict().items():
+            metadata[k] = v
+        logger.info('Got Request', extra=metadata)
         try:
             result = func(*args, **kw)
         except Exception as e:
@@ -31,7 +40,7 @@ def log_errors(func):
             # Currently this will raise a serialization error on the server
             # side
             return None
-        else:
+        else:            
             return result
     return wrapper
 

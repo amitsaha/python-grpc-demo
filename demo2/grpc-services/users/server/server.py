@@ -7,7 +7,7 @@ import grpc
 import users_pb2_grpc as users_service
 import users_types_pb2 as users_messages
 
-#from metric_interceptor import MetricInterceptor
+from metric_interceptor import MetricInterceptor
 from logging_interceptor import LoggingInterceptor
 
 import random
@@ -34,7 +34,7 @@ class UsersService(users_service.UsersServicer):
 def serve():
     server = grpc.server(
         futures.ThreadPoolExecutor(max_workers=10), 
-        interceptors=[LoggingInterceptor()],
+        interceptors=[LoggingInterceptor(), MetricInterceptor(),],
         )
     users_service.add_UsersServicer_to_server(UsersService(), server)
 
