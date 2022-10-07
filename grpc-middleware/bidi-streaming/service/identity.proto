@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+service Identity {
+  rpc ValidateToken (ValidateTokenRequest) returns (ValidateTokenReply) {}
+  rpc ExpireToken(stream ExpireTokenRequest) returns (stream ExpireTokenReply) {}
+}
+
+message ValidateTokenRequest {
+  string token = 1;
+}
+
+message ValidateTokenReply {
+  string user_id = 1;
+}
+
+message ExpireTokenRequest {
+  string token = 1;
+}
+
+message ExpireTokenReply {
+  bool result = 1;
+}

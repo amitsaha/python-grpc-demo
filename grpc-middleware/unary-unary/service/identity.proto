@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service Identity {
+  rpc ValidateToken (ValidateTokenRequest) returns (ValidateTokenReply) {}
+}
+
+message ValidateTokenRequest {
+  string token = 1;
+}
+
+message ValidateTokenReply {
+  string user_id = 1;
+}

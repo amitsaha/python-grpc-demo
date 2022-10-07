@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "user-sessions-bidi-streaming"
+version = "0.1.0"
+description = ""
+authors = ["Amit Saha <amitsaha.in@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+grpcio = "^1.43.0"
+grpcio-tools = "^1.43.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0.1"
+autopep8 = "^1.6"
+grpcio-testing = "^1.44.0"
+pytest-cov = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
