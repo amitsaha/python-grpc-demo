@@ -21,4 +21,6 @@ You will need [docker and docker compose](https://docs.docker.com/get-docker/) i
 
 ## Intereceptors
 
+This is updated to work with grpc 1.48.0 and Python 3.10
+
 - [grpc-middleware](./grpc-middleware)
