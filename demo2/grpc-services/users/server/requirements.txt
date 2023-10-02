@@ -1,4 +1,4 @@
-grpcio==1.6.3
+grpcio==1.53.0
 grpcio-tools==1.6.3
 protobuf==3.18.3
 datadog==0.16.0
