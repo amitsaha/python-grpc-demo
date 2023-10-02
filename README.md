@@ -1,5 +1,7 @@
 # Python + gRPC Demo
 
+Please see a more recent example of [gRPC interceptors](https://github.com/prod-python/kiwi-pycon-xi#grpc) as these examples are likely out of date and not working.
+
 ## Demos for articles:
 
 - https://blog.codeship.com/using-grpc-in-python/
@@ -18,9 +20,3 @@ You will need [docker and docker compose](https://docs.docker.com/get-docker/) i
 
 #### [demo1](https://github.com/amitsaha/python-grpc-demo/tree/master/demo1)
 #### [demo2](https://github.com/amitsaha/python-grpc-demo/tree/master/demo2)
-
-## Intereceptors
-
-This is updated to work with grpc 1.48.0 and Python 3.10
-
-- [grpc-middleware](./grpc-middleware)
