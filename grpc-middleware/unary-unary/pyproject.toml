@@ -6,7 +6,7 @@ authors = ["Amit Saha <amitsaha.in@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-grpcio = "^1.43.0"
+grpcio = "^1.53.0"
 grpcio-tools = "^1.43.0"
 
 [tool.poetry.dev-dependencies]
